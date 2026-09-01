@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Knowledge Base Agent</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <h1>📚 Knowledge Agent</h1>
+    </div>
+
+    <!-- Upload Area -->
+    <div class="upload-section">
+      <label class="upload-btn" id="uploadBtn">
+        <span>+ Upload Document</span>
+        <input type="file" id="fileInput" hidden multiple accept=".pdf,.docx,.doc,.md,.txt,.html,.htm">
+      </label>
+      <div class="url-upload">
+        <input type="text" id="urlInput" placeholder="Or paste a URL...">
+        <button id="urlBtn" title="Fetch URL">↗</button>
+      </div>
+      <div id="uploadStatus" class="upload-status"></div>
+    </div>
+
+    <!-- Document List -->
+    <div class="doc-list-header">
+      <span>Documents</span>
+      <span id="docCount" class="badge">0</span>
+    </div>
+    <ul id="docList" class="doc-list"></ul>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button id="clearChatBtn" class="btn-sm">Clear Chat</button>
+      <button id="buildGraphBtn" class="btn-sm">Build Graph</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main id="main">
+    <!-- Chat Area -->
+    <div id="chatContainer">
+      <div id="chatMessages" class="chat-messages">
+        <div class="welcome">
+          <h2>AI Knowledge Base Agent</h2>
+          <p>Upload documents and ask questions. I'll find answers with source citations.</p>
+          <p class="hint">支持中文提问 · PDF / DOCX / Markdown / Web</p>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="chat-input">
+        <textarea id="chatInput" rows="1" placeholder="Ask a question about your documents..."></textarea>
+        <button id="sendBtn" title="Send">➤</button>
+      </div>
+
+      <!-- Status Bar -->
+      <div id="statusBar" class="status-bar">
+        <span id="statusText">Ready</span>
+        <span id="chunkCount" class="dim"></span>
+      </div>
+    </div>
+
+    <!-- Right Panel (Sources + Graph) -->
+    <div id="rightPanel">
+      <div class="panel-tabs">
+        <button class="tab active" data-tab="sources">Sources</button>
+        <button class="tab" data-tab="graph">Knowledge Graph</button>
+      </div>
+
+      <div id="sourcesPanel" class="panel-content">
+        <p class="dim">Sources will appear here after each query.</p>
+      </div>
+
+      <div id="graphPanel" class="panel-content" style="display:none">
+        <div id="cyContainer"></div>
+        <div id="graphStats" class="graph-stats"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
